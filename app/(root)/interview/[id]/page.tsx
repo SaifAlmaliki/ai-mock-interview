@@ -4,10 +4,7 @@ import { redirect } from "next/navigation";
 import Agent from "@/components/Agent";
 import { getRandomInterviewCover } from "@/lib/utils";
 
-import {
-  getFeedbackByInterviewId,
-  getInterviewById,
-} from "@/lib/actions/general.action";
+import { getFeedbackByInterviewId, getInterviewById } from "@/lib/actions/general.action";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 

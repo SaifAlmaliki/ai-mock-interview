@@ -1,7 +1,14 @@
+// External dependencies
 import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
-import { z } from "zod";
+import { z } from "zod"; // Schema validation library
 
+// ===================================================
+// TECHNOLOGY MAPPINGS
+// ===================================================
+// Maps various ways users might input tech names to standardized values
+// Used for normalizing technology stack inputs across the application
 export const mappings = {
+  // Frontend frameworks and libraries
   "react.js": "react",
   reactjs: "react",
   react: "react",
@@ -11,19 +18,36 @@ export const mappings = {
   "vue.js": "vuejs",
   vuejs: "vuejs",
   vue: "vuejs",
+  "angular.js": "angular",
+  angularjs: "angular",
+  angular: "angular",
+  "ember.js": "ember",
+  emberjs: "ember",
+  ember: "ember",
+  "backbone.js": "backbone",
+  backbonejs: "backbone",
+  backbone: "backbone",
+  
+  // Backend technologies
   "express.js": "express",
   expressjs: "express",
   express: "express",
   "node.js": "nodejs",
   nodejs: "nodejs",
   node: "nodejs",
+  nestjs: "nestjs",
+  
+  // Databases
   mongodb: "mongodb",
   mongo: "mongodb",
   mongoose: "mongoose",
   mysql: "mysql",
   postgresql: "postgresql",
   sqlite: "sqlite",
+  redis: "redis",
   firebase: "firebase",
+  
+  // DevOps and infrastructure
   docker: "docker",
   kubernetes: "kubernetes",
   aws: "aws",
@@ -31,8 +55,13 @@ export const mappings = {
   gcp: "gcp",
   digitalocean: "digitalocean",
   heroku: "heroku",
+  
+  // Design tools
   photoshop: "photoshop",
   "adobe photoshop": "photoshop",
+  figma: "figma",
+  
+  // Frontend technologies
   html5: "html5",
   html: "html5",
   css3: "css3",
@@ -44,23 +73,19 @@ export const mappings = {
   tailwind: "tailwindcss",
   bootstrap: "bootstrap",
   jquery: "jquery",
+  
+  // Programming languages
   typescript: "typescript",
   ts: "typescript",
   javascript: "javascript",
   js: "javascript",
-  "angular.js": "angular",
-  angularjs: "angular",
-  angular: "angular",
-  "ember.js": "ember",
-  emberjs: "ember",
-  ember: "ember",
-  "backbone.js": "backbone",
-  backbonejs: "backbone",
-  backbone: "backbone",
-  nestjs: "nestjs",
+  
+  // API and data handling
   graphql: "graphql",
   "graph ql": "graphql",
   apollo: "apollo",
+  
+  // Build tools
   webpack: "webpack",
   babel: "babel",
   "rollup.js": "rollup",
@@ -68,53 +93,69 @@ export const mappings = {
   rollup: "rollup",
   "parcel.js": "parcel",
   parceljs: "parcel",
+  
+  // Package managers and version control
   npm: "npm",
   yarn: "yarn",
   git: "git",
   github: "github",
   gitlab: "gitlab",
   bitbucket: "bitbucket",
-  figma: "figma",
+  
+  // ORM and state management
   prisma: "prisma",
   redux: "redux",
   flux: "flux",
-  redis: "redis",
+  vuex: "vuex",
+  
+  // Testing
   selenium: "selenium",
   cypress: "cypress",
   jest: "jest",
   mocha: "mocha",
   chai: "chai",
   karma: "karma",
-  vuex: "vuex",
+  
+  // Frameworks and CMS
   "nuxt.js": "nuxt",
   nuxtjs: "nuxt",
   nuxt: "nuxt",
   strapi: "strapi",
   wordpress: "wordpress",
   contentful: "contentful",
+  
+  // Hosting and deployment
   netlify: "netlify",
   vercel: "vercel",
   "aws amplify": "amplify",
 };
 
+// ===================================================
+// AI INTERVIEWER CONFIGURATION
+// ===================================================
+// Configuration for the VAPI AI interviewer assistant
 export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
+  // Initial greeting message from the AI
   firstMessage:
     "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
+  // Speech-to-text configuration
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
     language: "en",
   },
+  // Text-to-speech voice configuration
   voice: {
     provider: "11labs",
     voiceId: "sarah",
-    stability: 0.4,
-    similarityBoost: 0.8,
-    speed: 0.9,
-    style: 0.5,
-    useSpeakerBoost: true,
+    stability: 0.4,        // Lower values = more variation in voice
+    similarityBoost: 0.8,  // Higher values = more similar to original voice
+    speed: 0.9,            // Speaking speed (0.5-1.5)
+    style: 0.5,            // Emotional intensity
+    useSpeakerBoost: true, // Enhance speaker clarity
   },
+  // AI model configuration
   model: {
     provider: "openai",
     model: "gpt-4",
@@ -136,7 +177,7 @@ Be professional, yet warm and welcoming:
 Use official yet friendly language.
 Keep responses concise and to the point (like in a real voice interview).
 Avoid robotic phrasing—sound natural and conversational.
-Answer the candidate’s questions professionally:
+Answer the candidate's questions professionally:
 
 If asked about the role, company, or expectations, provide a clear and relevant answer.
 If unsure, redirect the candidate to HR for more details.
@@ -155,8 +196,15 @@ End the conversation on a polite and positive note.
   },
 };
 
+// ===================================================
+// FEEDBACK SCHEMA
+// ===================================================
+// Zod schema defining the structure of interview feedback
+// Used for validation and type safety with AI-generated feedback
 export const feedbackSchema = z.object({
+  // Overall interview score
   totalScore: z.number(),
+  // Scores for specific assessment categories
   categoryScores: z.tuple([
     z.object({
       name: z.literal("Communication Skills"),
@@ -184,11 +232,18 @@ export const feedbackSchema = z.object({
       comment: z.string(),
     }),
   ]),
+  // Lists of candidate's strengths and weaknesses
   strengths: z.array(z.string()),
   areasForImprovement: z.array(z.string()),
+  // Overall assessment and hiring recommendation
   finalAssessment: z.string(),
 });
 
+// ===================================================
+// UI ASSETS
+// ===================================================
+// List of company logos used as interview covers
+// Displayed on interview cards for visual variety
 export const interviewCovers = [
   "/adobe.png",
   "/amazon.png",
@@ -204,6 +259,11 @@ export const interviewCovers = [
   "/yahoo.png",
 ];
 
+// ===================================================
+// SAMPLE DATA
+// ===================================================
+// Mock interview data for development and testing
+// Used when real data is not available or for UI demonstrations
 export const dummyInterviews: Interview[] = [
   {
     id: "1",
