@@ -77,11 +77,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
   }
 }
 
-/**
- * Retrieves a specific interview by its ID
- * @param id The interview document ID
- * @returns The interview data or null if not found
- */
+// Retrieves a specific interview by its ID
 export async function getInterviewById(id: string): Promise<Interview | null> {
   // Fetch interview document from Firestore
   const interview = await db.collection("interviews").doc(id).get();
@@ -89,9 +85,7 @@ export async function getInterviewById(id: string): Promise<Interview | null> {
   return interview.data() as Interview | null;
 }
 
-/**
- * Gets feedback for a specific interview and user
- */
+// Gets feedback for a specific interview and user
 export async function getFeedbackByInterviewId(
   params: GetFeedbackByInterviewIdParams
 ): Promise<Feedback | null> {
@@ -117,9 +111,7 @@ export async function getFeedbackByInterviewId(
   return { id: feedbackDoc.id, ...feedbackDoc.data() } as Feedback;
 }
 
-/**
- * Retrieves the most recent interviews excluding the user's own
- */
+// Retrieves the most recent interviews excluding the user's own
 export async function getLatestInterviews(
   params: GetLatestInterviewsParams
 ): Promise<Interview[] | null> {
