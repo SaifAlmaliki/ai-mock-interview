@@ -9,10 +9,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -46,11 +43,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       if (type === "sign-up") {
         const { name, email, password } = data;
 
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
         const result = await signUp({
           uid: userCredential.user.uid,
@@ -69,11 +62,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       } else {
         const { email, password } = data;
 
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
         const idToken = await userCredential.user.getIdToken();
         if (!idToken) {
@@ -81,10 +70,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           return;
         }
 
-        await signIn({
-          email,
-          idToken,
-        });
+        await signIn({ email, idToken });
 
         toast.success("Signed in successfully.");
         router.push("/");

@@ -21,14 +21,7 @@ interface SavedMessage {
   content: string;
 }
 
-const Agent = ({
-  userName,
-  userId,
-  interviewId,
-  feedbackId,
-  type,
-  questions,
-}: AgentProps) => {
+const Agent = ({userName, userId, interviewId, feedbackId, type, questions}: AgentProps) => {
   const router = useRouter();
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, setMessages] = useState<SavedMessage[]>([]);
@@ -81,7 +74,7 @@ const Agent = ({
       vapi.off("error", onError);
     };
   }, []);
-
+ 
   useEffect(() => {
     if (messages.length > 0) {
       setLastMessage(messages[messages.length - 1].content);
